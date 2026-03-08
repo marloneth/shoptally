@@ -7,7 +7,7 @@ import { ListCard } from '../components/ListCard';
 import { EmptyState } from '../components/EmptyState';
 import { ConfirmModal } from '../components/ConfirmModal';
 import { LanguageSwitcher } from '../components/LanguageSwitcher';
-import { TrashIcon, PlusIcon } from '../components/icons';
+import { TrashIcon, PlusIcon, AppIcon } from '../components/icons';
 
 export function Home() {
   const { t } = useTranslation();
@@ -73,7 +73,10 @@ export function Home() {
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-md mx-auto px-4">
           <div className="flex items-center justify-between py-4">
-            <h1 className="text-xl font-bold text-gray-900">{t('app.name')}</h1>
+            <div className="flex items-center gap-2">
+              <AppIcon className="w-8 h-8" />
+              <h1 className="text-xl font-bold text-gray-900">{t('app.name')}</h1>
+            </div>
             <LanguageSwitcher />
           </div>
           <div className="flex gap-1 -mb-px">
