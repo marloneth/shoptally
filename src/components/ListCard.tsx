@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { List } from '../types';
 
 interface ListCardProps {
@@ -7,6 +8,7 @@ interface ListCardProps {
 }
 
 export function ListCard({ list, itemCount, onClick }: ListCardProps) {
+  const { t } = useTranslation();
   const date = new Date(list.createdAt).toLocaleDateString('es-MX', {
     day: 'numeric',
     month: 'short',
@@ -15,14 +17,14 @@ export function ListCard({ list, itemCount, onClick }: ListCardProps) {
   return (
     <button
       onClick={onClick}
-      className="w-full p-4 text-left bg-white border border-gray-200 rounded-lg shadow-sm hover:border-blue-500 hover:shadow-md transition-all"
+      className="w-full p-5 text-left bg-white border border-gray-200 rounded-xl shadow-sm hover:border-blue-500 hover:shadow-md transition-all active:scale-[0.99]"
     >
       <div className="flex items-center justify-between">
-        <h3 className="font-medium text-gray-900 truncate">{list.name}</h3>
+        <h3 className="text-lg font-semibold text-gray-900 truncate">{list.name}</h3>
         <span className="text-sm text-gray-500">{date}</span>
       </div>
-      <p className="mt-1 text-sm text-gray-500">
-        {itemCount} {itemCount === 1 ? 'item' : 'items'}
+      <p className="mt-2 text-base text-gray-500">
+        {t('listCard.item', { count: itemCount })}
       </p>
     </button>
   );

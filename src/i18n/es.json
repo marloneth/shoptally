@@ -1,0 +1,67 @@
+{
+  "app": {
+    "name": "Shoptally"
+  },
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "add": "Agregar",
+    "close": "Cerrar"
+  },
+  "home": {
+    "title": "Mis Listas",
+    "createList": "Crear Lista",
+    "noLists": "Sin listas aún",
+    "noListsMessage": "Crea tu primera lista de compras",
+    "active": "Activas",
+    "completed": "Completadas"
+  },
+  "listDetail": {
+    "addItem": "Agregar artículo...",
+    "total": "Total (artículos marcados)",
+    "category": "Categoría",
+    "noItems": "Sin artículos aún",
+    "noItemsMessage": "Añade tu primer artículo",
+    "customCategory": "Otra...",
+    "uncategorized": "Sin categoría",
+    "deleteConfirm": "¿Eliminar esta lista?",
+    "deleteMessage": "Esta acción no se puede deshacer.",
+    "complete": "Completar",
+    "completed": "Completado el",
+    "total": "Total",
+    "deleteList": "Eliminar Lista"
+  },
+  "listCard": {
+    "item_one": "{{count}} artículo",
+    "item_other": "{{count}} artículos"
+  },
+  "itemModal": {
+    "editItem": "Editar Artículo",
+    "name": "Nombre",
+    "quantity": "Cantidad",
+    "price": "Precio",
+    "category": "Categoría"
+  },
+  "categories": {
+    "fruits": "🥬 Frutas y Verduras",
+    "meat": "🥩 Carnes y Mariscos",
+    "dairy": "🧀 Lácteos y Huevos",
+    "bakery": "🍞 Panadería",
+    "frozen": "🧊 Congelados",
+    "pantry": "🥫 Despensa",
+    "beverages": "🥤 Bebidas",
+    "snacks": "🍪 Botanas",
+    "condiments": "🧂 Condimentos y Salsas",
+    "canned": "🥫 Enlatados",
+    "household": "🧻 Hogar",
+    "personal": "🧴 Cuidado Personal",
+    "other": "📦 Otros"
+  },
+  "language": {
+    "select": "Idioma",
+    "en": "English",
+    "es": "Español"
+  }
+}

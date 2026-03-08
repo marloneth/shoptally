@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 interface ConfirmModalProps {
   isOpen: boolean;
   title: string;
@@ -7,6 +9,8 @@ interface ConfirmModalProps {
 }
 
 export function ConfirmModal({ isOpen, title, message, onConfirm, onCancel }: ConfirmModalProps) {
+  const { t } = useTranslation();
+  
   if (!isOpen) return null;
 
   return (
@@ -19,13 +23,13 @@ export function ConfirmModal({ isOpen, title, message, onConfirm, onCancel }: Co
             onClick={onCancel}
             className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
           >
-            Cancel
+            {t("common.cancel")}
           </button>
           <button
             onClick={onConfirm}
             className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700"
           >
-            Delete
+            {t("common.delete")}
           </button>
         </div>
       </div>

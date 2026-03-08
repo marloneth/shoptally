@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { List, Item } from '../types';
+import { useTranslation } from 'react-i18next';
+import { List } from '../types';
 import { getLists, getItems, saveLists, generateId } from '../utils/storage';
 import { ListCard } from '../components/ListCard';
 import { EmptyState } from '../components/EmptyState';
 import { ConfirmModal } from '../components/ConfirmModal';
+import { LanguageSwitcher } from '../components/LanguageSwitcher';
+import { TrashIcon, PlusIcon } from '../components/icons';
 
 export function Home() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [lists, setLists] = useState<List[]>([]);
   const [activeTab, setActiveTab] = useState<'active' | 'completed'>('active');
@@ -68,27 +72,30 @@ export function Home() {
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-md mx-auto px-4">
-          <h1 className="text-xl font-bold text-gray-900 py-4">Shoptally</h1>
+          <div className="flex items-center justify-between py-4">
+            <h1 className="text-xl font-bold text-gray-900">{t('app.name')}</h1>
+            <LanguageSwitcher />
+          </div>
           <div className="flex gap-1 -mb-px">
             <button
               onClick={() => setActiveTab('active')}
-              className={`flex-1 py-3 text-sm font-medium border-b-2 transition-colors ${
+              className={`flex-1 py-4 text-base font-medium border-b-2 transition-colors ${
                 activeTab === 'active'
                   ? 'border-blue-600 text-blue-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700'
               }`}
             >
-              Active ({activeLists.length})
+              {t('home.active')} ({activeLists.length})
             </button>
             <button
               onClick={() => setActiveTab('completed')}
-              className={`flex-1 py-3 text-sm font-medium border-b-2 transition-colors ${
+              className={`flex-1 py-4 text-base font-medium border-b-2 transition-colors ${
                 activeTab === 'completed'
                   ? 'border-blue-600 text-blue-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700'
               }`}
             >
-              History ({completedLists.length})
+              {t('home.completed')} ({completedLists.length})
             </button>
           </div>
         </div>
@@ -97,8 +104,8 @@ export function Home() {
       <main className="max-w-md mx-auto px-4 py-4 pb-24">
         {displayedLists.length === 0 ? (
           <EmptyState
-            title={activeTab === 'active' ? 'No active lists' : 'No history yet'}
-            message={activeTab === 'active' ? 'Create your first shopping list' : 'Completed lists will appear here'}
+            title={activeTab === 'active' ? t('home.noLists') : t('home.noLists')}
+            message={activeTab === 'active' ? t('home.noListsMessage') : t('home.noListsMessage')}
           />
         ) : (
           <div className="space-y-3">
@@ -117,9 +124,7 @@ export function Home() {
                     }}
                     className="absolute top-4 right-4 p-2 text-gray-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"
                   >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg>
+                    <TrashIcon className="w-5 h-5" />
                   </button>
                 )}
               </div>
@@ -131,40 +136,38 @@ export function Home() {
       {activeTab === 'active' && (
         <button
           onClick={() => setShowCreateModal(true)}
-          className="fixed bottom-6 right-6 w-14 h-14 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 flex items-center justify-center transition-colors"
+          className="fixed bottom-6 right-6 w-16 h-16 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 active:scale-95 flex items-center justify-center transition-all"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-          </svg>
+          <PlusIcon className="w-7 h-7" />
         </button>
       )}
 
       {showCreateModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="w-full max-w-sm p-6 mx-4 bg-white rounded-lg shadow-xl">
-            <h3 className="text-lg font-semibold text-gray-900">New Shopping List</h3>
-            <form onSubmit={(e) => { e.preventDefault(); handleCreateList(); }} className="mt-4">
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 p-4">
+          <div className="w-full max-w-sm p-6 bg-white rounded-2xl shadow-xl">
+            <h3 className="text-xl font-semibold text-gray-900">{t('home.createList')}</h3>
+            <form onSubmit={(e) => { e.preventDefault(); handleCreateList(); }} className="mt-6">
               <input
                 type="text"
                 value={newListName}
                 onChange={(e) => setNewListName(e.target.value)}
-                placeholder="List name"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder={t('home.title')}
+                className="w-full px-4 py-3 text-lg border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                 autoFocus
               />
               <div className="flex justify-end gap-3 mt-6">
                 <button
                   type="button"
                   onClick={() => { setShowCreateModal(false); setNewListName(''); }}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
+                  className="flex-1 px-5 py-3 text-base font-medium text-gray-700 bg-gray-100 rounded-xl hover:bg-gray-200 active:scale-[0.98] transition-all"
                 >
-                  Cancel
+                  {t('common.cancel')}
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+                  className="flex-1 px-5 py-3 text-base font-medium text-white bg-blue-600 rounded-xl hover:bg-blue-700 active:scale-[0.98] transition-all"
                 >
-                  Create
+                  {t('common.add')}
                 </button>
               </div>
             </form>
@@ -174,8 +177,8 @@ export function Home() {
 
       <ConfirmModal
         isOpen={deleteConfirm.show}
-        title="Delete List"
-        message={`Are you sure you want to delete "${deleteConfirm.list?.name}"? This action cannot be undone.`}
+        title={t('listDetail.deleteConfirm')}
+        message={t('listDetail.deleteMessage')}
         onConfirm={confirmDelete}
         onCancel={() => setDeleteConfirm({ show: false, list: null })}
       />

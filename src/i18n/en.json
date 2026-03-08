@@ -1,0 +1,65 @@
+{
+  "app": {
+    "name": "Shoptally"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "close": "Close"
+  },
+  "home": {
+    "title": "My Lists",
+    "createList": "Create List",
+    "noLists": "No lists yet",
+    "noListsMessage": "Create your first shopping list",
+    "active": "Active",
+    "completed": "Completed"
+  },
+  "listDetail": {
+    "addItem": "Add item...",
+    "total": "Total (checked items)",
+    "category": "Category",
+    "customCategory": "Or add custom...",
+    "uncategorized": "Uncategorized",
+    "deleteConfirm": "Delete this list?",
+    "deleteMessage": "This action cannot be undone.",
+    "complete": "Complete",
+    "completed": "Completed on",
+    "total": "Total",
+    "deleteList": "Delete List"
+  },
+  "listCard": {
+    "item_one": "{{count}} item",
+    "item_other": "{{count}} items"
+  },
+  "itemModal": {
+    "editItem": "Edit Item",
+    "name": "Name",
+    "quantity": "Quantity",
+    "price": "Price",
+    "category": "Category"
+  },
+  "categories": {
+    "fruits": "🥬 Fruits & Vegetables",
+    "meat": "🥩 Meat & Seafood",
+    "dairy": "🧀 Dairy & Eggs",
+    "bakery": "🍞 Bakery",
+    "frozen": "🧊 Frozen Foods",
+    "pantry": "🥫 Pantry",
+    "beverages": "🥤 Beverages",
+    "snacks": "🍪 Snacks",
+    "condiments": "🧂 Condiments & Sauces",
+    "canned": "🥫 Canned Goods",
+    "household": "🧻 Household",
+    "personal": "🧴 Personal Care",
+    "other": "📦 Other"
+  },
+  "language": {
+    "select": "Language",
+    "en": "English",
+    "es": "Español"
+  }
+}

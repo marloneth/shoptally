@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Item } from '../types';
 
 interface ItemModalProps {
@@ -9,24 +10,27 @@ interface ItemModalProps {
 }
 
 export function ItemModal({ isOpen, item, onSave, onClose }: ItemModalProps) {
+  const { t } = useTranslation();
   const [name, setName] = useState('');
   const [quantity, setQuantity] = useState('');
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState('');
+  const priceInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (item) {
+    if (item && isOpen) {
       setName(item.name);
-      setQuantity(item.quantity);
-      setPrice(item.price);
+      setQuantity(item.quantity || '1');
+      setPrice(item.price || '0');
       setCategory(item.category);
+      setTimeout(() => priceInputRef.current?.focus(), 0);
     } else {
       setName('');
       setQuantity('');
       setPrice('');
       setCategory('');
     }
-  }, [item]);
+  }, [item, isOpen]);
 
   if (!isOpen) return null;
 
@@ -44,43 +48,44 @@ export function ItemModal({ isOpen, item, onSave, onClose }: ItemModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50">
-      <div className="w-full bg-white rounded-t-lg sm:rounded-lg sm:max-w-md">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 p-4">
+      <div className="w-full bg-white rounded-t-2xl sm:rounded-2xl sm:max-w-md">
         <form onSubmit={handleSubmit}>
-          <div className="p-4 border-b border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900">Edit Item</h3>
+          <div className="p-6 border-b border-gray-200">
+            <h3 className="text-xl font-semibold text-gray-900">{t('itemModal.editItem')}</h3>
           </div>
-          <div className="p-4 space-y-4">
+          <div className="p-6 space-y-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Name</label>
+              <label className="block text-base font-medium text-gray-700">{t('itemModal.name')}</label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-2 block w-full px-4 py-3 text-lg border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500"
                 autoFocus
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Quantity</label>
+                <label className="block text-base font-medium text-gray-700">{t('itemModal.quantity')}</label>
                 <input
                   type="number"
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="mt-2 block w-full px-4 py-3 text-lg border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500"
                   placeholder="1"
                   min="0"
                   step="any"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Price</label>
+                <label className="block text-base font-medium text-gray-700">{t('itemModal.price')}</label>
                 <input
+                  ref={priceInputRef}
                   type="number"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="mt-2 block w-full px-4 py-3 text-lg border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500"
                   placeholder="0.00"
                   min="0"
                   step="0.01"
@@ -88,29 +93,29 @@ export function ItemModal({ isOpen, item, onSave, onClose }: ItemModalProps) {
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Category</label>
+              <label className="block text-base font-medium text-gray-700">{t('itemModal.category')}</label>
               <input
                 type="text"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="e.g., Dairy, Produce"
+                className="mt-2 block w-full px-4 py-3 text-lg border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500"
+                placeholder={t('itemModal.category')}
               />
             </div>
           </div>
-          <div className="flex justify-end gap-3 p-4 border-t border-gray-200">
+          <div className="flex gap-3 p-6 border-t border-gray-200">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
+              className="flex-1 px-5 py-3 text-base font-medium text-gray-700 bg-gray-100 rounded-xl hover:bg-gray-200 active:scale-[0.98] transition-all"
             >
-              Cancel
+              {t('common.cancel')}
             </button>
             <button
               type="submit"
-              className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+              className="flex-1 px-5 py-3 text-base font-medium text-white bg-blue-600 rounded-xl hover:bg-blue-700 active:scale-[0.98] transition-all"
             >
-              Save
+              {t('common.save')}
             </button>
           </div>
         </form>
