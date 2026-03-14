@@ -6,12 +6,26 @@ interface ConfirmModalProps {
   message: string;
   onConfirm: () => void;
   onCancel: () => void;
+  confirmLabel?: string;
+  confirmVariant?: "danger" | "primary";
 }
 
-export function ConfirmModal({ isOpen, title, message, onConfirm, onCancel }: ConfirmModalProps) {
+export function ConfirmModal({ 
+  isOpen, 
+  title, 
+  message, 
+  onConfirm, 
+  onCancel,
+  confirmLabel,
+  confirmVariant = "danger",
+}: ConfirmModalProps) {
   const { t } = useTranslation();
   
   if (!isOpen) return null;
+
+  const buttonClass = confirmVariant === "danger" 
+    ? "bg-red-600 hover:bg-red-700" 
+    : "bg-green-600 hover:bg-green-700";
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
@@ -27,9 +41,9 @@ export function ConfirmModal({ isOpen, title, message, onConfirm, onCancel }: Co
           </button>
           <button
             onClick={onConfirm}
-            className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700"
+            className={`px-4 py-2 text-sm font-medium text-white rounded-lg ${buttonClass}`}
           >
-            {t("common.delete")}
+            {confirmLabel || t("common.delete")}
           </button>
         </div>
       </div>

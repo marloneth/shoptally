@@ -8,7 +8,9 @@
     "delete": "Delete",
     "edit": "Edit",
     "add": "Add",
-    "close": "Close"
+    "close": "Close",
+    "confirm": "Confirm",
+    "complete": "Complete"
   },
   "home": {
     "title": "My Lists",
@@ -29,7 +31,9 @@
     "complete": "Complete",
     "completed": "Completed on",
     "total": "Total",
-    "deleteList": "Delete List"
+    "deleteList": "Delete List",
+    "completeList": "Complete List?",
+    "completeMessage": "This will mark all items as completed."
   },
   "listCard": {
     "item_one": "{{count}} item",

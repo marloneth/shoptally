@@ -8,7 +8,8 @@
     "delete": "Eliminar",
     "edit": "Editar",
     "add": "Agregar",
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "confirm": "Confirmar"
   },
   "home": {
     "title": "Mis Listas",
@@ -31,7 +32,9 @@
     "complete": "Completar",
     "completed": "Completado el",
     "total": "Total",
-    "deleteList": "Eliminar Lista"
+    "deleteList": "Eliminar Lista",
+    "completeList": "¿Completar Lista?",
+    "completeMessage": "Esto marcará todos los artículos como completados."
   },
   "listCard": {
     "item_one": "{{count}} artículo",
